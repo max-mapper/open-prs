@@ -1,0 +1,14 @@
+{
+  "name": "open-prs",
+  "version": "1.0.0",
+  "description": "web app to show you all the pull requests that people have sent you",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "max ogden",
+  "license": "ISC",
+  "dependencies": {
+    "github-oauth": "^0.2.0"
+  }
+}
