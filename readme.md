@@ -11,3 +11,12 @@ This repo implements the following:
 - Combine the list of the users repos with the list of the users pushable organization repos
 - For each repo in this merged list, get all pull requests, filter by open (handles pagination)
 - Finally, we have a list of all open pull requests that the user can merge
+
+## usage
+
+```
+npm i open-prs -g
+GITHUB_OPENPR_TOKEN=foobar open-prs
+```
+
+it will print out open prs as NDJSON
