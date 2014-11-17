@@ -3,7 +3,7 @@
   "bin": {
     "open-prs": "cli.js"
   },
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "CLI utility to show you all the pull requests that you are able to merge",
   "main": "index.js",
   "author": "max ogden",
