@@ -9,7 +9,7 @@
   "author": "max ogden",
   "license": "BSD",
   "dependencies": {
-    "requestdb": "0.1.1",
+    "requestdb": "0.1.0",
     "request": "^2.48.0",
     "through2": "0.4.2",
     "debug": "0.7.4",
