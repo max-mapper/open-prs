@@ -51,6 +51,15 @@ $ open-prs | jsonfilter id
 22263238
 ```
 
+
+```
+$ open-prs | jsonfilter html_url
+"http://github.com/maxogden/dat/pulls/207"
+"http://github.com/maxogden/dat/pulls/212"
+"http://github.com/maxogden/dat/pulls/218"
+etc...
+```
+
 ## caching
 
 You can pass the `--cache` flag to cache all responses, which is useful for offline use. Note that the cache currently has no expiration functionality.
