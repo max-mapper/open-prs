@@ -5,23 +5,25 @@ var debug = require('debug')('open-prs')
 var url = require('url')
 var tmp = require('os').tmpdir()
 var path = require('path')
-  
+
 module.exports = function(token, opts) {
+  var API_URL = opts.url || 'https://api.github.com'
+
   if (opts.cache) request = requestdb(opts.cacheDir || path.join(tmp, 'open-prs-cache'))
-  
+
   // fetches user owned repos + repos user is a collaborator on
   // does not include repos owned by an org
   var repoStream = createPaginatedStream('/user/repos')
-  
+
   // fetches repos owned by an org that the user is a member of
   var orgStream = createPushableOrgRepoStream()
-  
+
   // filters out all repos that the user cannot push to (and therefore cant merge PRs on)
   var filterStream = through.obj(function(repo, enc, next) {
     if (repo.permissions.push) this.push(repo.full_name)
     next()
   })
-  
+
   // through stream that takes in a repo and emits all open PRs in that repo
   var getPullsStream = through.obj(function(repo, enc, next) {
     var pullsStream = createPaginatedStream('/repos/' + repo + '/pulls')
@@ -36,16 +38,16 @@ module.exports = function(token, opts) {
       next()
     })
   })
-  
+
   // TODO find better solution for multi readable -> single writable
   repoStream.pipe(filterStream, {end: false})
   orgStream.pipe(filterStream, {end: false})
   filterStream.pipe(getPullsStream)
-  
+
   return getPullsStream
-  
+
   function req(route, cb) {
-    var u = 'https://api.github.com' + route
+    var u = API_URL + route
     var headers = {
       "Authorization": "token " + token,
       "User-Agent": "nodejs"
@@ -65,7 +67,7 @@ module.exports = function(token, opts) {
       cb(data, getResp)
     })
   }
-  
+
   function createPushableOrgRepoStream() {
     var orgStream = through.obj()
     // assumes user/orgs isnt paginated
@@ -87,7 +89,7 @@ module.exports = function(token, opts) {
     var stream = through.obj()
     doRequest(route)
     return stream
-    
+
     function doRequest(apiURL) {
       req(apiURL, function(data, getResp) {
         data.forEach(function(item) { stream.push(item) })
@@ -101,7 +103,7 @@ module.exports = function(token, opts) {
         } else {
           stream.end()
         }
-      })          
+      })
     }
   }
 }
