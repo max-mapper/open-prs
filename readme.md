@@ -25,7 +25,7 @@ $ npm i open-prs -g
 
 You will need a GitHub token to use this. Set the environment variable `GITHUB_OPENPR_TOKEN` to your token, or pass it in at run-time by doing `GITHUB_OPENPR_TOKEN=foobar open-prs`.
 
-To get a token, visit your GitHub account settings page, go to Applications and create a new App Specific Token. 
+To get a token, visit your GitHub account settings page, go to Applications and create a new App Specific Token.
 
 To get your open PRs, simple run `open-prs` on the command line:
 
@@ -63,3 +63,10 @@ etc...
 ## caching
 
 You can pass the `--cache` flag to cache all responses, which is useful for offline use. Note that the cache currently has no expiration functionality.
+
+## enterprise github
+
+If you provide an enterprise github url in your ENV open-prs will use that instead of github
+```bash
+export GITHUB_OPENPR_ENTERPRISE_URL="https://githubsubdomain.yourdomain.com/api/v3"
+```
